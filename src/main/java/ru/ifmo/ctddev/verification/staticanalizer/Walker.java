@@ -33,7 +33,7 @@ public class Walker {
         if (errorFilePath.getParent() != null) {
             Files.createDirectories(errorFilePath.getParent());
         }
-        Files.write(errorFilePath, ("Analyzing started at " + System.currentTimeMillis()).getBytes());
+        Files.write(errorFilePath, ("Analyzing started at " + System.currentTimeMillis() + "\n").getBytes());
         Files.walk(Paths.get(rootPath))
                 .filter(path -> !Files.isDirectory(path))
                 .map(Path::toFile)
@@ -53,8 +53,6 @@ public class Walker {
         } catch (Exception ignored) {
             return;
         }
-        Files.write(errorFilePath, ("Analyzing " + fileToAnalyze.getCanonicalPath() + "\n").getBytes(),
-                StandardOpenOption.APPEND);
         for (Analyzer analyzer : analyzers) {
             for (TypeDeclaration<?> classDeclaration : compilationUnit.getTypes()) {
                 if (!(classDeclaration instanceof ClassOrInterfaceDeclaration)) {
