@@ -71,7 +71,7 @@ public class Walker {
                     });
                 }
                 if (!(classResult.length() == 0)) {
-                    String toPrint = classDeclaration.getNameAsString() + ":\n" + classResult;
+                    String toPrint = "WARNING: \n" + classDeclaration.getNameAsString() + ":\n" + classResult;
                     Files.write(errorFilePath, toPrint.getBytes(), StandardOpenOption.APPEND);
                 }
             }
