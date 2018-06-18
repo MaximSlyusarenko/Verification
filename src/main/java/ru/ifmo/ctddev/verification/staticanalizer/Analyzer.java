@@ -1,7 +1,13 @@
 package ru.ifmo.ctddev.verification.staticanalizer;
 
-import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.stmt.Statement;
+
+import javax.annotation.Nonnull;
 
 public interface Analyzer {
-    String analyze(CompilationUnit compilationUnit, String fileName);
+    @Nonnull
+    String analyze(@Nonnull Statement compilationUnit);
+
+    @Nonnull
+    String getErrorName();
 }

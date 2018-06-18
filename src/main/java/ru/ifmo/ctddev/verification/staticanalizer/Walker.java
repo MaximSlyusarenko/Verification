@@ -2,6 +2,9 @@ package ru.ifmo.ctddev.verification.staticanalizer;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -48,8 +51,25 @@ public class Walker {
             Files.write(errorFilePath, ("Analyzing " + fileToAnalyze.getCanonicalPath() + "\n").getBytes(),
                     StandardOpenOption.APPEND);
             for (Analyzer analyzer : analyzers) {
-                String result = analyzer.analyze(compilationUnit, fileToAnalyze.getAbsolutePath());
-                Files.write(errorFilePath, result.getBytes(), StandardOpenOption.APPEND);
+                for (TypeDeclaration<?> classDeclaration : compilationUnit.getTypes()) {
+                    if (!(classDeclaration instanceof ClassOrInterfaceDeclaration)) {
+                        continue;
+                    }
+                    StringBuilder classResult = new StringBuilder();
+                    for (MethodDeclaration methodDeclaration : classDeclaration.getMethods()) {
+                        methodDeclaration.getBody().ifPresent(methodBody -> {
+                            String resultOfMethod = analyzer.analyze(methodBody);
+                            if (!resultOfMethod.isEmpty()) {
+                                classResult.append("In method ").append(methodDeclaration.getNameAsString())
+                                        .append(analyzer.getErrorName()).append("\n");
+                            }
+                        });
+                    }
+                    if (!(classResult.length() == 0)) {
+                        String toPrint = classDeclaration.getNameAsString() + ":\n" + classResult;
+                        Files.write(errorFilePath, toPrint.getBytes(), StandardOpenOption.APPEND);
+                    }
+                }
             }
         }
 
