@@ -10,7 +10,8 @@ public class Main {
             System.out.println("Usage: java -jar analizer.jar [project-root]");
             return;
         }
-        Walker walker = new Walker("analyzer-output.out", Collections.emptyList());
+        Walker walker = new Walker("analyzer-output.out",
+                Collections.singletonList(new EmptyExceptionHandlerAnalyzer()));
         try {
             walker.runAndAnalyze(args[0]);
         } catch (IOException e) {
