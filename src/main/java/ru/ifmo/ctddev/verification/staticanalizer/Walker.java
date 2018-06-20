@@ -5,10 +5,10 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzes.Analyzer;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,20 +20,16 @@ import static java.util.Objects.requireNonNull;
 
 public class Walker {
 
-    private final String errorFileName;
+    private final Writer out;
     private final List<Analyzer> analyzers;
 
-    public Walker(@Nonnull String errorsFileName, @Nonnull List<Analyzer> analyzers) {
-        this.errorFileName = requireNonNull(errorsFileName, "errorFileName");
+    public Walker(@Nonnull Writer outStream, @Nonnull List<Analyzer> analyzers) {
+        this.out = requireNonNull(outStream, "outStream");
         this.analyzers = Collections.unmodifiableList(requireNonNull(analyzers, "analyzers"));
     }
 
     public void runAndAnalyze(@Nonnull String rootPath) throws IOException {
-        Path errorFilePath = Paths.get(errorFileName);
-        if (errorFilePath.getParent() != null) {
-            Files.createDirectories(errorFilePath.getParent());
-        }
-        Files.write(errorFilePath, ("Analyzing started at " + System.currentTimeMillis() + "\n").getBytes());
+        out.write("Analyzing started at " + System.currentTimeMillis() + "\n");
         Files.walk(Paths.get(rootPath))
                 .filter(path -> !Files.isDirectory(path))
                 .map(Path::toFile)
@@ -46,7 +42,6 @@ public class Walker {
     }
 
     private void analyzeFile(File fileToAnalyze) throws IOException {
-        Path errorFilePath = Paths.get(errorFileName);
         CompilationUnit compilationUnit;
         try {
             compilationUnit = JavaParser.parse(fileToAnalyze);
@@ -69,8 +64,7 @@ public class Walker {
                     });
                 }
                 if (!(classResult.length() == 0)) {
-                    String toPrint = "WARNING: \n" + classDeclaration.getNameAsString() + ":\n" + classResult;
-                    Files.write(errorFilePath, toPrint.getBytes(), StandardOpenOption.APPEND);
+                    out.write("WARNING: \n" + classDeclaration.getNameAsString() + ":\n" + classResult);
                 }
             }
         }

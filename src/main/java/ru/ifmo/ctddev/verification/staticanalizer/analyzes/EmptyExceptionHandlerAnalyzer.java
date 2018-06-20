@@ -1,4 +1,4 @@
-package ru.ifmo.ctddev.verification.staticanalizer;
+package ru.ifmo.ctddev.verification.staticanalizer.analyzes;
 
 import com.github.javaparser.Position;
 import com.github.javaparser.ast.Node;

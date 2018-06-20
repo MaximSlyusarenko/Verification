@@ -1,6 +1,6 @@
 package ru.ifmo.ctddev.verification.staticanalizer;
 
-public class ToFindError {
+public class EmptyCatch {
 
     public void something() {
         try {
