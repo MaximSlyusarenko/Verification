@@ -32,6 +32,6 @@ public class Main {
         if (outPath.getParent() != null) {
             Files.createDirectories(outPath.getParent());
         }
-        return Files.newBufferedWriter(outPath, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+        return Files.newBufferedWriter(outPath, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

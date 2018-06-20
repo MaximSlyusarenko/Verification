@@ -2,6 +2,8 @@ package ru.ifmo.ctddev.verification.staticanalizer;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
@@ -15,6 +17,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
 
@@ -58,15 +61,29 @@ public class Walker {
                     methodDeclaration.getBody().ifPresent(methodBody -> {
                         String resultOfMethod = analyzer.analyze(methodBody);
                         if (!resultOfMethod.isEmpty()) {
-                            classResult.append("In method ").append(methodDeclaration.getNameAsString()).append(" ")
-                                    .append(analyzer.getErrorName()).append(":\n").append(resultOfMethod).append("\n");
+                            classResult.append("Method \"").append(methodDeclaration.getNameAsString()).append("\": ")
+                                    .append(analyzer.getErrorName()).append(":\n")
+                                    .append(resultOfMethod).append("\n");
                         }
                     });
                 }
                 if (!(classResult.length() == 0)) {
-                    out.write("WARNING: \n" + classDeclaration.getNameAsString() + ":\n" + classResult);
+                    out.write(
+                            "WARNING: \n" +
+                                    getFullyQualifiedName(compilationUnit, classDeclaration) + ":\n" +
+                                    classResult
+                    );
                 }
             }
         }
+    }
+
+    private String getFullyQualifiedName(CompilationUnit compilationUnit, TypeDeclaration<?> classDeclaration) {
+        return compilationUnit.getPackageDeclaration()
+                .map(PackageDeclaration::getName)
+                .map(Node::toString)
+                .map(s -> s + ".")
+                .orElse("")
+                + classDeclaration.getNameAsString();
     }
 }
