@@ -2,6 +2,7 @@ package ru.ifmo.ctddev.verification.staticanalizer;
 
 import ru.ifmo.ctddev.verification.staticanalizer.analyzes.BitwiseOperatorsAnalyzer;
 import ru.ifmo.ctddev.verification.staticanalizer.analyzes.EmptyExceptionHandlerAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzes.SameOperandsAnalyzer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,7 +25,8 @@ public class Main {
             Walker walker = new Walker(out,
                     Arrays.asList(
                         new EmptyExceptionHandlerAnalyzer(),
-                        new BitwiseOperatorsAnalyzer()
+                        new BitwiseOperatorsAnalyzer(),
+                            new SameOperandsAnalyzer()
                     )
             );
             walker.runAndAnalyze(args[0]);

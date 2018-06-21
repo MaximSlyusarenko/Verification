@@ -4,6 +4,7 @@ import com.github.javaparser.Position;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.nodeTypes.NodeWithRange;
 import com.github.javaparser.ast.stmt.*;
 
 import javax.annotation.Nonnull;
@@ -39,11 +40,7 @@ public class EmptyExceptionHandlerAnalyzer implements Analyzer {
                     }
                 }
                 if (isEmpty) {
-                    result.append("Begin: ")
-                            .append(positionToString(catchClause.getBegin().orElse(new Position(-1, -1))))
-                            .append(", End:")
-                            .append(positionToString(catchClause.getEnd().orElse(new Position(-1, -1))))
-                            .append("\n");
+                    printPosition(result, catchClause);
                 }
             }
         }
