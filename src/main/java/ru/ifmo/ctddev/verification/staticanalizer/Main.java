@@ -1,5 +1,6 @@
 package ru.ifmo.ctddev.verification.staticanalizer;
 
+import ru.ifmo.ctddev.verification.staticanalizer.analyzes.BitwiseOperatorsAnalyzer;
 import ru.ifmo.ctddev.verification.staticanalizer.analyzes.EmptyExceptionHandlerAnalyzer;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Main {
@@ -19,7 +21,12 @@ public class Main {
             return;
         }
         try (Writer out = createWriter()) {
-            Walker walker = new Walker(out, Collections.singletonList(new EmptyExceptionHandlerAnalyzer()));
+            Walker walker = new Walker(out,
+                    Arrays.asList(
+                        new EmptyExceptionHandlerAnalyzer(),
+                        new BitwiseOperatorsAnalyzer()
+                    )
+            );
             walker.runAndAnalyze(args[0]);
         } catch (IOException e) {
             e.printStackTrace();
