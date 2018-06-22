@@ -1,18 +1,16 @@
 package ru.ifmo.ctddev.verification.staticanalizer;
 
-import ru.ifmo.ctddev.verification.staticanalizer.analyzes.BitwiseOperatorsAnalyzer;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzes.EmptyExceptionHandlerAnalyzer;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzes.SameOperandsAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzers.BitwiseOperatorsAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzers.EmptyExceptionHandlerAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzers.SameOperandsAnalyzer;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Main {
 
@@ -24,8 +22,8 @@ public class Main {
         try (Writer out = createWriter()) {
             Walker walker = new Walker(out,
                     Arrays.asList(
-                        new EmptyExceptionHandlerAnalyzer(),
-                        new BitwiseOperatorsAnalyzer(),
+                            new EmptyExceptionHandlerAnalyzer(),
+                            new BitwiseOperatorsAnalyzer(),
                             new SameOperandsAnalyzer()
                     )
             );

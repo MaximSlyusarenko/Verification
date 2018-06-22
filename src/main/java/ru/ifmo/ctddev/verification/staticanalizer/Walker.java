@@ -7,17 +7,15 @@ import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzes.Analyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzers.Analyzer;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
 

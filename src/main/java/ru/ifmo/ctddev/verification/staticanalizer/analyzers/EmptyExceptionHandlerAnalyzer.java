@@ -1,10 +1,8 @@
-package ru.ifmo.ctddev.verification.staticanalizer.analyzes;
+package ru.ifmo.ctddev.verification.staticanalizer.analyzers;
 
-import com.github.javaparser.Position;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.Parameter;
-import com.github.javaparser.ast.nodeTypes.NodeWithRange;
 import com.github.javaparser.ast.stmt.*;
 
 import javax.annotation.Nonnull;
