@@ -23,9 +23,9 @@ public class Main {
         try (Writer out = createWriter()) {
             Walker walker = new Walker(out,
                     Arrays.asList(
-//                            new EmptyExceptionHandlerAnalyzer(),
-//                            new BitwiseOperatorsAnalyzer(),
-//                            new SameOperandsAnalyzer(),
+                            new EmptyExceptionHandlerAnalyzer(),
+                            new BitwiseOperatorsAnalyzer(),
+                            new SameOperandsAnalyzer(),
                             new KnownExpressionsAnalyzer()
                     )
             );
