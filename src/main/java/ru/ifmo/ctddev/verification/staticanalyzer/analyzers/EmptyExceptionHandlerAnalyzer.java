@@ -57,6 +57,9 @@ public class EmptyExceptionHandlerAnalyzer implements Analyzer {
         return "Empty exception handler";
     }
 
+    @Override
+    public void refreshAnalyzerForNewMethod() {}
+
     private boolean isBlockStatementEmpty(BlockStmt blockStmt) {
         List<Node> childNodes = blockStmt.getChildNodes();
         if (childNodes.isEmpty()) {

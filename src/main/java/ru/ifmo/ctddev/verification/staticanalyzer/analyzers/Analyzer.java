@@ -14,6 +14,8 @@ public interface Analyzer {
     @Nonnull
     String getErrorName();
 
+    void refreshAnalyzerForNewMethod();
+
     default String positionToString(@Nonnull Position position) {
         if (position.line == -1 || position.column == -1) {
             return "Unknown position";

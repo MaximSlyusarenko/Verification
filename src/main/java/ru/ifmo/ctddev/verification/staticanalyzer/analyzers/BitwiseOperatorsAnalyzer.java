@@ -23,6 +23,9 @@ public class BitwiseOperatorsAnalyzer implements Analyzer {
         return "Useless bitwise operation";
     }
 
+    @Override
+    public void refreshAnalyzerForNewMethod() {}
+
     class MyVisitor extends VoidVisitorAdapter<StringBuilder> {
         @Override
         public void visit(BinaryExpr binaryExpr, StringBuilder out) {

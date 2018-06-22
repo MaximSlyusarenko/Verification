@@ -23,6 +23,9 @@ public class SameOperandsAnalyzer implements Analyzer {
         return "Same operands";
     }
 
+    @Override
+    public void refreshAnalyzerForNewMethod() {}
+
     class MyVisitor extends VoidVisitorAdapter<StringBuilder> {
 
         @Override

@@ -14,10 +14,15 @@ import java.util.Set;
 
 public class KnownExpressionsAnalyzer implements Analyzer {
     @Nonnull
-    private final Set<Expression> alwaysTrueExpressions;
+    private Set<Expression> alwaysTrueExpressions;
 
     public KnownExpressionsAnalyzer() {
         this.alwaysTrueExpressions = new HashSet<>();
+    }
+
+    @Override
+    public void refreshAnalyzerForNewMethod() {
+        alwaysTrueExpressions = new HashSet<>();
     }
 
     @Nonnull
@@ -110,12 +115,20 @@ public class KnownExpressionsAnalyzer implements Analyzer {
                 if (Boolean.FALSE.equals(leftExpressionKnownValue) || Boolean.FALSE.equals(rightExpressionKnownValue)) {
                     result.add(new ExpressionWithValue(expression, false));
                 }
-            }
-            if (binaryExpr.getOperator() == BinaryExpr.Operator.OR) {
-                if (Boolean.TRUE.equals(leftExpressionKnownValue) || Boolean.FALSE.equals(rightExpressionKnownValue)) {
+                if (Boolean.TRUE.equals(leftExpressionKnownValue) && Boolean.TRUE.equals(rightExpressionKnownValue)) {
                     result.add(new ExpressionWithValue(expression, true));
                 }
             }
+            if (binaryExpr.getOperator() == BinaryExpr.Operator.OR) {
+                if (Boolean.TRUE.equals(leftExpressionKnownValue) || Boolean.TRUE.equals(rightExpressionKnownValue)) {
+                    result.add(new ExpressionWithValue(expression, true));
+                }
+                if (Boolean.FALSE.equals(leftExpressionKnownValue) && Boolean.FALSE.equals(rightExpressionKnownValue)) {
+                    result.add(new ExpressionWithValue(expression, false));
+                }
+            }
+            result.addAll(leftKnownExpressions);
+            result.addAll(rightKnownExpressions);
         }
         return result;
     }

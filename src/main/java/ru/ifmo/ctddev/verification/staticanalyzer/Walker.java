@@ -56,6 +56,7 @@ public class Walker {
                 }
                 StringBuilder classResult = new StringBuilder();
                 for (MethodDeclaration methodDeclaration : classDeclaration.getMethods()) {
+                    analyzer.refreshAnalyzerForNewMethod();
                     methodDeclaration.getBody().ifPresent(methodBody -> {
                         String resultOfMethod = analyzer.analyze(methodBody);
                         if (!resultOfMethod.isEmpty()) {
