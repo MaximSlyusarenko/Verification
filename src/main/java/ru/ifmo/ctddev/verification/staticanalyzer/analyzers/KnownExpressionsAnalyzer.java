@@ -1,4 +1,4 @@
-package ru.ifmo.ctddev.verification.staticanalizer.analyzers;
+package ru.ifmo.ctddev.verification.staticanalyzer.analyzers;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.BinaryExpr;

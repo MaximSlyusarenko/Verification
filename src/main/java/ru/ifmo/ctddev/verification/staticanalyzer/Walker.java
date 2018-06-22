@@ -1,4 +1,4 @@
-package ru.ifmo.ctddev.verification.staticanalizer;
+package ru.ifmo.ctddev.verification.staticanalyzer;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -7,7 +7,7 @@ import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzers.Analyzer;
+import ru.ifmo.ctddev.verification.staticanalyzer.analyzers.Analyzer;
 
 import javax.annotation.Nonnull;
 import java.io.*;

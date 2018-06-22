@@ -1,9 +1,9 @@
-package ru.ifmo.ctddev.verification.staticanalizer;
+package ru.ifmo.ctddev.verification.staticanalyzer;
 
-import ru.ifmo.ctddev.verification.staticanalizer.analyzers.BitwiseOperatorsAnalyzer;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzers.EmptyExceptionHandlerAnalyzer;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzers.KnownExpressionsAnalyzer;
-import ru.ifmo.ctddev.verification.staticanalizer.analyzers.SameOperandsAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalyzer.analyzers.BitwiseOperatorsAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalyzer.analyzers.EmptyExceptionHandlerAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalyzer.analyzers.KnownExpressionsAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalyzer.analyzers.SameOperandsAnalyzer;
 
 import java.io.IOException;
 import java.io.Writer;

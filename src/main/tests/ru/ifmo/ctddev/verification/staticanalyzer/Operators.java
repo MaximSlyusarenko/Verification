@@ -1,4 +1,4 @@
-package ru.ifmo.ctddev.verification.staticanalizer;
+package ru.ifmo.ctddev.verification.staticanalyzer;
 
 public class Operators {
 
