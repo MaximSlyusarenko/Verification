@@ -2,6 +2,7 @@ package ru.ifmo.ctddev.verification.staticanalizer;
 
 import ru.ifmo.ctddev.verification.staticanalizer.analyzers.BitwiseOperatorsAnalyzer;
 import ru.ifmo.ctddev.verification.staticanalizer.analyzers.EmptyExceptionHandlerAnalyzer;
+import ru.ifmo.ctddev.verification.staticanalizer.analyzers.KnownExpressionsAnalyzer;
 import ru.ifmo.ctddev.verification.staticanalizer.analyzers.SameOperandsAnalyzer;
 
 import java.io.IOException;
@@ -24,7 +25,8 @@ public class Main {
                     Arrays.asList(
                             new EmptyExceptionHandlerAnalyzer(),
                             new BitwiseOperatorsAnalyzer(),
-                            new SameOperandsAnalyzer()
+                            new SameOperandsAnalyzer(),
+                            new KnownExpressionsAnalyzer()
                     )
             );
             walker.runAndAnalyze(args[0]);
